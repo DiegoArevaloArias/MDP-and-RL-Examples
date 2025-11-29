@@ -28,7 +28,6 @@ $$A = \{\text{Lento}, \text{Medio}, \text{Rápido}, \text{Reparar}\}$$
 
 ---
 
-# Tablas solicitadas
 
 ## 1. Probabilidades de aumento de desgaste ($\alpha_a$)
 
@@ -80,10 +79,10 @@ $$A = \{\text{Lento}, \text{Medio}, \text{Rápido}, \text{Reparar}\}$$
 | 5 | 1000 |
 | 6 | 1500 |
 | 7 | 2000 |
-| 9 | 2800 |
+| 8 | 2500 |
+| 9 | 3000 |
 ---
 
-# Continuación del texto original
 
 ### C. Dinámica de Transición ($P$) y Probabilidades
 
