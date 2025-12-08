@@ -150,7 +150,7 @@ py -m Statistics.agent_comparison
 Se plantea la implementación simplificada de una intersección que consta de dos semáforos y dos filas de carros representando el tráfico. Cada carro tendrá un nivel de afán (por ejemplo para modelar una ambulancia), que vendrá dado por una distribución de probabilidad y estará asignado un sentido (Norte-Sur o Este-Oeste) con cierta probabilidad, para indicar que puede que haya un sentido con más tráfico, al que se le debería dar más prioridad.
 
 Una posible distribución de afanes para mil carros en la simulación se verían asi:
-![Gráfico de estadísticas](Statistics/Graphs/eagerness_distributions.png)
+![Gráfico de estadísticas](Semaforo/Statistics/Graphs/eagerness_distributions.png)
 
 El objetivo es poder crear una visualización donde se aprecie que el semáforo cambia dependiendo de la cantidad de autos por sentido y el nivel de afán de los carros en el tráfico.
 
@@ -181,13 +181,13 @@ Para modelar el flujo del tráfico, decidimos que por cada paso de tiempo que se
 ## 3.Resultados
 
 Se asumió que la probabilidad de que un carro entre por el sentido NS sea de 0.5 y en el otro de 0.2, por lo que es más transitado este sentido. Se testearon para todas las distribuciones de afanes de los carros entre sí y contra unos agentes naive, que cambiaban los semáforos cada cierto intervalo de tiempo fijo, como 10 pasos. A continuación se muestran las gráficas obtenidas:
-![Gráfico de estadísticas](Statistics/Graphs/traffic_comparison.png)
+![Gráfico de estadísticas](Semaforo/Statistics/Graphs/traffic_comparison.png)
 
 De acá podemos ver que las recompensas obtenidas, que es la cantidad que queremos minimizar, es aproximadamente el 90% mejor que contra los agentes naive y que cuando los afanes de los carros están distribuidos uniformemente, se logra un mejor desempeño, aprendiendo mejor los valores de los features. Por ejemplo, como un valor 10 es raro, aprenderá que debe dejar pasar la fila de carros donde se encuentre este.
 
 Por otro lado tenemos el siguiente análisis que nos pareció interesante, la convergencia del aprendizaje, que se ve reflejado en cómo disminuye la longitud promedio de la fila y por las recompensas que va obteniendo conforme va aprendiendo. Consideramos que hiciese 1000 episodios cada uno de 500 pasos de la intersección, por lo que aprende tanto escenarios iniciales como intermedios.
 
-![Gráfico de estadísticas](Statistics/Graphs/learning_curves.png)
+![Gráfico de estadísticas](Semaforo/Statistics/Graphs/learning_curves.png)
 
  Vemos como en el paso 400 aproximadamente los agentes ya tienen una política definida, exceptuando el comportamiento anómalo de la distribución normal, probablemente debido a que no se había enfrentado a escenarios donde hubiese muchos carros con mucho afán.
 
