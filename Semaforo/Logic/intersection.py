@@ -2,6 +2,11 @@ import random
 import numpy as np
 
 class Car:
+    """ 
+    Modelamos cada carro con una orientación (NS o WE) y un afán (eagerness) que afecta su tiempo de espera. 
+    Además, para tener variedad de simulaciones podemos definir diferentes distribuciones para el afán.
+    Cada auto mantiene su propio tiempo de espera.
+    """
     def __init__(self, orientation: str, eagerness: int = None, eagerness_distribution: str = "poisson"):
         # Diferentes distribuciones para el eagerness
         if eagerness is not None:
@@ -25,6 +30,9 @@ class Car:
         self.wait_time = 0
 
 class TrafficLight:
+    """ 
+    Cada semáforo tiene una orientación (NS o WE), un booleano, que indica si está en verde, y un contador del tiempo que lleva en verde.
+    """
     def __init__(self, orientation: str):
         self.orientation = orientation
         self.is_green = False
@@ -40,6 +48,11 @@ class TrafficLight:
             self.time_green += 1
 
 class Intersection:
+    """ 
+    Para esta intersección en particular, tenemos dos semáforos (NS y WE) y listas de carros esperando en cada dirección.
+        Parámetros:
+        - eagerness_distribution: distribución para el afán de los carros
+    """
     def __init__(self, eagerness_distribution: str = "poisson"):
         self.ns_traffic_light = TrafficLight("NS")
         self.we_traffic_light = TrafficLight("WE")
@@ -48,6 +61,9 @@ class Intersection:
         self.eagerness_distribution = eagerness_distribution
         
     def add_car(self):
+        """ 
+        Agrega nuevos carros a la intersección con cierta probabilidad (podría ajustarse para que se pase por parámetro los valores de p y q).
+        """
         p = random.uniform(0,1)
         q = random.uniform(0,1)
         if p < 0.5:
@@ -57,6 +73,15 @@ class Intersection:
             self.we_cars.append(Car("WE", eagerness_distribution=self.eagerness_distribution))
 
     def getState(self):
+        """ 
+        Modelamos cada estado de la intersección como una tupla con:
+        - ns_green: booleano, si el semáforo NS está en verde
+        - ns_cars: número de coches en el carril NS
+        - we_cars: número de coches en el carril WE
+        - ns_weight: suma del afán de los coches en el carril NS
+        - we_weight: suma del afán de los coches en el carril WE
+        - max_time_green: tiempo máximo que ha estado verde alguno de los semáforos
+        """
         return (
             self.ns_traffic_light.is_green, 
             len(self.ns_cars), 
@@ -67,6 +92,12 @@ class Intersection:
         )
 
     def step(self, action: str):
+        """ 
+        Simula un paso en la intersección dado una acción ("switch" o "stay").
+        Cambia los semáforos, actualiza tiempos, agrega carros, deja pasar carros y calcula la recompensa.
+        Devuelve la recompensa en negativo del afán total de los carros esperando en el carril rojo, esto
+        pues debemos maximizar la recompensa y queremos minimizar el afán de los carros esperando.
+        """
         if action == "switch":
             self.ns_traffic_light.switch()
             self.we_traffic_light.switch()

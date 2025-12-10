@@ -2,6 +2,14 @@ import collections
 import random
 
 class TrafficAgent:
+    """ 
+    Agente de tráfico que utiliza Q-learning con aproximación lineal para decidir cuándo cambiar el semáforo.
+    Parámetros:
+    - epsilon: probabilidad de exploración
+    - gamma: factor de descuento
+    - alpha: tasa de aprendizaje
+    """
+    
     def __init__(self, epsilon: float, gamma: float, alpha: float):
         self.epsilon = epsilon
         self.gamma = gamma
@@ -9,6 +17,17 @@ class TrafficAgent:
         self.weights = collections.Counter()
         
     def getFeatures(self, state, action):
+        """ 
+        Consideramos los siguientes features:
+        - bias: siempre 1
+        - active_lane_cars: número de coches en el carril activo (normalizado)
+        - inactive_lane_cars: número de coches en el carril inactivo (normalizado)
+        - switch_very_fast: 1 si se cambia muy rápido (<3 pasos), 0 en otro caso
+        - switch_fast: 1 si se cambia rápido (<5 pasos), 0 en otro caso
+        - switch_moderate: 1 si se cambia moderadamente rápido (<8 pasos), 0 en otro caso
+        - switch_inversely_proportional: recompensa inversamente proporcional al tiempo que ha estado verde
+        - patience_reward: recompensa por esperar si el semáforo ha estado verde poco tiempo
+        """
         ns_green, ns_cars, we_cars, ns_weight, we_weight, max_time_green = state
         features = collections.Counter()    
         
@@ -49,7 +68,9 @@ class TrafficAgent:
             features["inactive_lane_eagerness"] = ns_weight/100
             
         return features
-        
+    
+    # Funciones principales de Q-learning, vistas en el curso y laboratorios pasados
+    
     def getQValue(self, state, action):
         features = self.getFeatures(state, action)
         q_value = 0
@@ -86,7 +107,9 @@ class TrafficAgent:
             self.weights[feature] += self.alpha * difference * value
 
 class NaiveAgent:
-    """Agente que cambia el semáforo cada N pasos fijos"""
+    """
+    Agente que cambia el semáforo cada N pasos fijos
+    """
     def __init__(self, switch_interval: int):
         self.switch_interval = switch_interval
         self.steps_since_switch = 0
