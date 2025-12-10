@@ -187,6 +187,10 @@ Como estos algoritmos buscan maximizar, pero en este caso necesitamos minimizar 
 ### Entorno:
 Para modelar el flujo del tráfico, decidimos que por cada paso de tiempo que se dé, al estar en un espacio discreto, pueda avanzar el carro en la primera posición de la fila, si su correspondiente semáforo se encuentra en verde. Además, con ciertas probabilidades se añade un carro en cada sentido, para que crezca la fila de carros. Esto es útil para ver cómo se comporta la intersección en horas pico (muchos carros llegan a la intersección) vs una hora tranquila (las filas de carros no son muy largas) o para ver un sentido como una vía principal, que haya carros casi en todo momento y que el otro sentido no lo sea.
 
+Un ejemplo de la visualización para poder apreciar el entorno y las decisiones tomadas por el agente se muestra a continuación:
+
+![Visualización](Semaforo/Visualization/Captura.PNG)
+
 ---
 
 ## 3.Resultados
@@ -206,5 +210,9 @@ Por otro lado tenemos el siguiente análisis que nos pareció interesante, la co
 
  ## 4.Conclusiones
 
- #TODO
+El agente adaptativo de Q-Learning logró una mejora de aproximadamente el 90% en la recompensa total (el valor que se busca minimizar, representando el costo del tráfico) en comparación con los agentes que cambiaban el semáforo con un tiempo fijo
+
+La incorporación del atributo de afán  en los features permitió al agente priorizar dinámicamente las filas más urgentes, optimizando la recompensa incluso con tráfico desequilibrado
+
+La decisión de usar Approximate Q-Learning fue acertada, ya que el espacio de estados era muy grande potencialmente $10^{30}$ estados
 
