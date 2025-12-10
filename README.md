@@ -126,10 +126,12 @@ Para nuevas máquinas o componentes no muy conocidos no se conocen las probabili
 # 5. Resultados
 
 Política óptima, resultado obtenido al usar la ecuación de Bellman e iteración de valores:
+
 <img width="194" height="175" alt="image" src="https://github.com/user-attachments/assets/ad3572c0-7721-4148-8e89-d6bfe294b2d8" />
 
 
 Pólitica lograda por Q-learning usando Epsilon-greedy:
+
 <img width="162" height="172" alt="image" src="https://github.com/user-attachments/assets/a7e95c50-5404-427e-92cb-7e956175e78d" />
 
 
