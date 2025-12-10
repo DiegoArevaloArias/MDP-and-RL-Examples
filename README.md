@@ -135,7 +135,7 @@ Pólitica lograda por Q-learning usando Epsilon-greedy:
 <img width="162" height="172" alt="image" src="https://github.com/user-attachments/assets/a7e95c50-5404-427e-92cb-7e956175e78d" />
 
 
-Como se puede observar las dos políticas son similares, a excepción del estado 9, esto se debe a que en este estado lleva muchas iteraciones entender que "Rápido no es la mejor opción", sino que es "Reparar".
+Como se puede observar las dos políticas son similares, a excepción del estado 9, esto se debe a que en este estado lleva muchas iteraciones entender que "Rápido" no es la mejor opción, sino que es "Reparar".
 
 Cabe resaltar que Q-learning se entrenó con 100000 iteraciones, esto ya que se necesita visitar varias veces cada estado para que se tenga un valor cada vez más cercano al real. Adicionalmente, como epsilon disminuye con el tiempo, la exploración disminuye antes de que todos los estados se visiten lo suficiente, lo cuál hace necesario usar más iteraciones.
 
